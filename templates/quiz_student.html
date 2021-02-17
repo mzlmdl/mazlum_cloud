@@ -5,7 +5,7 @@
     </h3>
     <ol>
         {% for i in question %}
-            <li>Where is <u>{{i}}</u> located?</li>
+            <li><u>{{i}}</u></li>
             {% for j in question[i] %}
                 <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
             {% endfor %}

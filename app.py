@@ -85,14 +85,13 @@ def question():
                 else:
                     return redirect(url_for('show'))
     return render_template('question.html')
-    
 
 questionsList = {}
 exam = Exams.query.filter_by(id=1).first()
 question = Questions.query.filter_by(exam_id=exam.id).all()
 for i in range(exam.count):
-    questionsList[question[i].question_description] = [question[i].right_answer, question[i].wrong_answer1,
-                                                                question[i].wrong_answer2, question[i].wrong_answer3]
+    questionsList[question[i].question_description] = [question[i].right_answer, question[i].wrong_answer1,question[i].wrong_answer2, question[i].wrong_answer3]
+print(questionsList)
 
 
 @app.route('/')
@@ -105,21 +104,20 @@ def home():
         session['logged_in'] = False
         return render_template('quiz_student.html', question = questionsList)
     elif key==2:
+        
+        
         session['logged_in'] = False
         return render_template('show.html', e = Exams.query.all())
 
 @app.route('/quiz', methods=['POST'])
 def quiz_answers():
-    global questionsList
-    correct = 0
-
-    for i in questionsList.keys():
-        answered = request.form[i]
-        print(answered)
+ correct = 0
+ for i in questionsList.keys():
+  answered = request.form[i]
   
-        if questionsList[i][0] == answered:
-            correct = correct+1
-    return '<h1>Correct Answers: <u>'+str(correct)+'</u></h1>'
+  if questionsList[i][0] == answered:
+   correct = correct+1
+ return '<h1>Correct Answers: <u>'+str(correct)+'</u></h1>'
 
 @app.route('/login', methods=['POST'])
 def login():

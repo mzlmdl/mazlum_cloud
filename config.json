@@ -1,0 +1,9 @@
+{
+    "database": {
+        "host": "mazlumdolupostgres.postgres.database.azure.com",
+        "dbname": "postgres",
+        "user": "Skywalker",
+        "password": "Bjk.2731*",
+        "ssl": "require"
+    }
+}

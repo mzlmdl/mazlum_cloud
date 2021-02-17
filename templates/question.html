@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <h3>Question</h3>
+      <hr/>
+
+      {%- for category, message in get_flashed_messages(with_categories = true) %}
+         <div class = "alert alert-danger">
+            {{ message }}
+         </div>
+      {%- endfor %}
+
+      <form action = "{{ request.path }}" method = "post">
+		 <label for = "description">Description</label><br>
+         <input type = "text" name = "description" placeholder = "" /><br>
+		 <label for = "right">Right Answer</label><br>
+         <input type = "text" name = "right" placeholder = "" /><br>
+         <label for = "wrong1">First Wrong Answer</label><br>
+         <input type = "text" name = "wrong1" placeholder = "" /><br>
+         <label for = "wrong2">Second Wrong Answer</label><br>
+         <input type = "text" name = "wrong2" placeholder = "" /><br>
+         <label for = "wrong3">Third Wrong Answer</label><br>
+         <input type = "text" name = "wrong3" placeholder = "" /><br>
+         <input type = "submit" value = "Add" />
+      </form>
+   </body>
+</html>

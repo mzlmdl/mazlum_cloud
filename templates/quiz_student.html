@@ -1,0 +1,15 @@
+<h1>SINAV</h1>
+<form action='/quiz' method='POST'>
+    <h3>
+         <a href = "{{ url_for('home') }}"> Exit </a>
+    </h3>
+    <ol>
+        {% for i in question %}
+            <li>Where is <u>{{i}}</u> located?</li>
+            {% for j in question[i] %}
+                <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
+            {% endfor %}
+        {% endfor %}
+    </ol>
+    <input type="submit" value="submit"/>
+</form>

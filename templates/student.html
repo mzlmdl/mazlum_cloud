@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+
+      <h3>
+         <a href = "{{ url_for('home') }}"> Exit </a>
+      </h3>
+
+      <hr/>
+      {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %}
+
+      <table>
+         <thead>
+            <tr>
+               <th>Id</th>
+               <th>Ders Adı</th>
+               <th>Soru Sayısı</th>
+            </tr>
+         </thead>
+
+         <tbody>
+            {% for exam in e %}
+               <tr>
+                  <td>
+                     <form method="post" action="/student">
+                        <input type="submit" value={{ exam.id }} name="id"/>
+                     </form>
+                  </td>
+                  <td>{{ exam.name }}</td>
+                  <td>{{ exam.count }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </body>
+</html>

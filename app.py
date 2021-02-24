@@ -1,7 +1,5 @@
-from flask import Flask
-from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 import os
-from flask import Flask, request, flash, url_for, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -27,6 +25,7 @@ class Questions(db.Model):
     wrong_answer1 = db.Column(db.String(30),nullable=False)
     wrong_answer2 = db.Column(db.String(30),nullable=False)
     wrong_answer3 = db.Column(db.String(30),nullable=False)
+
     exam_id = db.Column(db.Integer, db.ForeignKey('exams.id'), nullable=False)
     
     def __init__(self,question_description,right_answer,wrong_answer1,wrong_answer2,wrong_answer3,exam_id):
@@ -40,10 +39,6 @@ class Questions(db.Model):
 idtemp = 0
 count = 0
 key=0
-
-@app.route('/show', methods = ['GET', 'POST'])
-def show():
-    return render_template('show.html', e = Exams.query.all())
 
 
 @app.route('/new', methods = ['GET', 'POST'])
@@ -83,29 +78,37 @@ def question():
                     flash('Record was successfully added')
                     return redirect(url_for('question'))
                 else:
-                    return redirect(url_for('show'))
+                    return render_template('show.html', e = Exams.query.all())
     return render_template('question.html')
 
-questionsList = {}
-exam = Exams.query.filter_by(id=1).first()
-question = Questions.query.filter_by(exam_id=exam.id).all()
-for i in range(exam.count):
-    questionsList[question[i].question_description] = [question[i].right_answer, question[i].wrong_answer1,question[i].wrong_answer2, question[i].wrong_answer3]
-print(questionsList)
+@app.route('/student', methods=['GET', 'POST'])
+def student():
 
+    global selectedId
+    if request.method == 'POST':
+        selectedId = request.form.get('id')
+        print(selectedId)
+        exam = Exams.query.filter_by(id=selectedId).first()
+        question = Questions.query.filter_by(exam_id=exam.id).all()
+        for i in range(exam.count):
+            questionsList[question[i].question_description] = [question[i].right_answer, question[i].wrong_answer1,
+                                                               question[i].wrong_answer2, question[i].wrong_answer3]
+
+        return render_template('quiz_student.html', question=questionsList)
+    else:
+        return render_template("student.html")
+
+questionsList = {}
 
 @app.route('/')
 def home():
-    global questionsList
 
     if not session.get('logged_in'):
         return render_template('login.html')
     elif key==1:
         session['logged_in'] = False
-        return render_template('quiz_student.html', question = questionsList)
+        return render_template('student.html', e = Exams.query.all())
     elif key==2:
-        
-        
         session['logged_in'] = False
         return render_template('show.html', e = Exams.query.all())
 

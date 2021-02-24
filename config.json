@@ -1,9 +1,9 @@
 {
     "database": {
-        "host": "mazlumdolupostgres.postgres.database.azure.com",
-        "dbname": "postgres",
-        "user": "Skywalker",
-        "password": "Bjk.2731*",
+        "host": "ziggy.db.elephantsql.com",
+        "dbname": "fxrxdlfp",
+        "user": "fxrxdlfp",
+        "password": "vdheMYo7RGYvdalXfbnLNVHvTYf05Hza",
         "ssl": "require"
     }
 }

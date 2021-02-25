@@ -2,7 +2,7 @@
     "database": {
         "host": "mazlumdolupostgres2.postgres.database.azure.com",
         "dbname": "postgres",
-        "user": "Skywalker@mazlumdolupostgres2",
+        "user": "Skywalker",
         "password": "Bjk.2731*",
         "ssl": "require"
     }
